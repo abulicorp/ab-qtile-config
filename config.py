@@ -24,6 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from tkinter import font
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
@@ -38,10 +39,19 @@ import subprocess
 from libqtile import hook
 
 
+
+
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.run([home])
+
+with open('current_week/current_week.txt', encoding='utf-8') as f:
+    lines = f.readlines()
+
+    for line in lines:
+        current_week = line
+        break
 
 
 mod = "mod4"
@@ -122,7 +132,7 @@ keys = [
         "scrot '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'")),
     Key([mod], "n", lazy.spawn(
         "scrot '/tmp/%F_%T_$wx$h.png' -s -e 'xclip -selection clipboard -target image/png -i $f'")),
-   # Key([mod, "control"], "p", lazy.spawn(
+    # Key([mod, "control"], "p", lazy.spawn(
     #    "scrot '/tmp/%F_%T_$wx$h.png' -s -e 'feh `ls -t /tmp/*.png | head -1`'")),
     Key([mod, "control"], "p", lazy.spawn(
         "scrot '/home/paul/%F_%T_$wx$h.png' -s -e 'feh `ls -t /home/paul/*.png | head -1`'")),
@@ -214,7 +224,7 @@ layouts = [
     # layout.Stack(num_stacks=3),
     # layout.Bsp(),
     layout.Matrix(),
-    # layout.MonadTall(),
+    layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -234,7 +244,11 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                
                 widget.GroupBox(),
+                widget.WindowCount(
+                    background='#3cb371',
+                ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -243,43 +257,49 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                # 
+                widget.TextBox(text=current_week),
                 widget.CurrentLayout(),
                 widget.Systray(),
                 widget.Clock(format='%d %a %I:%M %p'),
                 widget.Pomodoro(),
                 widget.QuickExit(),
-                widget.WindowCount(),
+                
             ],
             24,
         ),
     ),
     Screen(
         top=bar.Bar(
+
             [
                 widget.GroupBox(),
+                widget.WindowCount(
+                    background='#3cb371',
+                ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Moc(),
                 widget.Mpris2(),
                 widget.CurrentLayout(),
                 widget.Net(
-                    format='wlp0s20f0u9u3: {down} ↓↑ {up}', 
+                    format='wlp0s20f0u9u3: {down} ↓↑ {up}',
                     foreground='ff45ff',
                     update_interval=1),
                 # widget.Notify(),
                 widget.Wallpaper(directory='~/wallpapers/large'),
-                
-                widget.Image(filename='~/pengchat-icon.png'),
-                
+
+                widget.Image(filename='~/pengchat-icon.png',
+
+                             ),
+
                 widget.Chord(
                     chords_colors={
                         'launch': ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+
                 
-                widget.WindowCount(),
 
             ],
             24,
@@ -287,26 +307,12 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.Volume(),
-		widget.Cmus(),
+                widget.Cmus(
+                    
+                    font='ubuntu mono bold',
+                    fontsize=15,
+                ),
                 widget.Notify(),
-                # widget.GroupBox(),
-                # widget.Prompt(),
-                # widget.WindowName(),
-                # widget.Chord(
-                #     chords_colors={
-                #         'launch': ("#ff0000", "#ffffff"),
-                #     },
-                #     name_transform=lambda name: name.upper(),
-                # ),
-                
-                # widget.CurrentLayout(),
-                
-                # widget.Volume(),
-                # widget.Systray(),
-                # widget.Clock(format='%d %a %I:%M %p'),
-                # widget.Pomodoro(),
-                # widget.QuickExit(),
-                # widget.WindowCount(),
             ],
             24,
         ),
@@ -354,3 +360,5 @@ auto_minimize = True
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
+

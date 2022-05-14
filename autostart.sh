@@ -21,3 +21,7 @@ feh --bg-scale ~/wallpapers/large/matteo-catanese-PI8Hk-3ZcCU-unsplash.jpg
 
 #kdeconnect-app &
 kdeconnect-indicator &
+
+
+# Obtener el nro de semana
+python3 ~/current_week/current_week.py
