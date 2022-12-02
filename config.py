@@ -168,7 +168,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#ff0000", "#ff0000"], border_width=4),
+    layout.Columns(border_focus_stack=["#84ff33 ", "#84ff33 "], border_width=4),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -199,9 +199,12 @@ screens = [
                 widget.WindowName(),
                 widget.Chord(
                     chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
+                        "launch": ("#84ff33 ", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
+                ),
+                widget.Net(
+                    format='{interface}: U {up} D {down}'
                 ),
                 widget.LaunchBar(progs=[
                     ('scrcpy', 'scrcpy', 'Open scrcpy'),
@@ -209,11 +212,13 @@ screens = [
                     ('thunar', 'thunar', 'Open thunar'),
                     ('code', 'code', 'Open code'),
                     ('alacritty', 'alacritty', 'Open alacritty'),
+                    ('discord', '/home/jean/Discord/Discord', 'Open discord'),
+                    ('emoji-picker', 'emoji-picker', 'Open emoji picker'),
                     ]
                 ),
                 widget.Volume(),
                 widget.CurrentLayout(),
-                widget.TextBox("abcorp", foreground="#ff0000"),
+                widget.TextBox("abcorp", foreground="#84ff33"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
                 widget.Systray(),
