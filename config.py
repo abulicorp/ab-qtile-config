@@ -88,7 +88,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
-    # Broser
+    # Browser
     Key([mod], "b", lazy.spawn("firefox")),
 
     # File Explorer
@@ -137,6 +137,8 @@ keys = [
     # Redshift
     Key([mod], "i", lazy.spawn("redshift -O 2400")),
     Key([mod, "shift"], "i", lazy.spawn("redshift -x")),
+    
+    # cmus
     Key([mod], "a", lazy.spawn("alacritty -e cmus")),
 
 ]

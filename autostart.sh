@@ -6,4 +6,4 @@ nm-applet &
 
 kdeconnect-indicator &
 
-redshift -l -16.439931:-71.590675 -m randr &
+# redshift -l -16.439931:-71.590675 -m randr &
